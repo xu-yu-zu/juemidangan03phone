@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TERMINAL_DEATH_STREAM</title>
+    <style>
+        :root {
+            --screen-green: #33ff33;
+            --bezel-color: #2a2a2a;
+            --wood-grain: #3d2b1f;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+        }
+
+        /* 手机垂直电视外框 */
+        .tv-frame {
+            width: 90vw;
+            height: 160vw; /* 9:16 比例 */
+            max-width: 400px;
+            max-height: 711px;
+            background: var(--bezel-color);
+            border: 8px solid #1a1a1a;
+            border-radius: 40px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,1), inset 0 0 20px #000;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        /* 模拟木纹侧边 (70年代经典) */
+        .tv-frame::before {
+            content: "";
+            position: absolute;
+            top: 10%; right: -12px; height: 80%; width: 12px;
+            background: var(--wood-grain);
+            border-radius: 0 10px 10px 0;
+            border: 2px solid #221a10;
+        }
+
+        /* 凸面玻璃屏幕效果 */
+        .screen-container {
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #111;
+            /* 模拟球形屏幕畸变 */
+            mask-image: radial-gradient(circle, white 70%, black 110%);
+        }
+
+        /* 屏幕内部内容 */
+        .screen-content {
+            padding: 25px;
+            color: var(--screen-green);
+            font-size: 1rem;
+            line-height: 1.4;
+            text-shadow: 0 0 8px var(--screen-green);
+        }
+
+        /* CRT 扫描线 */
+        .scanlines {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(
+                rgba(18, 16, 16, 0) 50%, 
+                rgba(0, 0, 0, 0.2) 50%
+            ), linear-gradient(
+                90deg, 
+                rgba(255, 0, 0, 0.05), 
+                rgba(0, 255, 0, 0.01), 
+                rgba(0, 0, 255, 0.05)
+            );
+            background-size: 100% 3px, 3px 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* 屏幕闪烁 */
+        @keyframes flicker {
+            0% { opacity: 0.97; }
+            5% { opacity: 0.92; }
+            10% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+        .screen-container { animation: flicker 0.1s infinite; }
+
+        .header {
+            border-bottom: 1px solid var(--screen-green);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .alert {
+            background: var(--screen-green);
+            color: #000;
+            font-weight: bold;
+            padding: 2px 5px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .headline {
+            font-size: 1.8rem;
+            font-weight: bold;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* 模拟旋钮 */
+        .knob {
+            position: absolute;
+            bottom: 25px;
+            right: -25px;
+            width: 40px;
+            height: 40px;
+            background: #222;
+            border-radius: 50%;
+            border: 3px solid #111;
+            box-shadow: 2px 2px 5px #000;
+        }
+
+        .knob::after {
+            content: "";
+            position: absolute;
+            top: 5px; left: 18px; width: 4px; height: 15px;
+            background: #444;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="tv-frame">
+    <div class="knob"></div>
+    <div class="screen-container">
+        <div class="scanlines"></div>
+        <div class="screen-content">
+            <div class="header">
+                <span>CHANNEL: 04 [DANGER]</span>
+                <span>REC ●</span>
+            </div>
+            
+            <div class="alert">LEVEL S ACCESS REQUIRED</div>
+            
+            <div class="headline">
+                教育分流：<br>
+                正在杀死的<br>
+                不仅是孩子
+            </div>
+
+            <div class="main-text">
+                [>] 你以为你在卷名校？<br>
+                [>] 不，你在参加一场<br>
+                [>] 针对中产的自残式献祭。<br><br>
+                [>] 那些真正的猎手<br>
+                [>] 早已跳出了你所在的<br>
+                [>] 这个带血的赛道。<br><br>
+                [>] 你的努力，<br>
+                [>] 只是在加固你的牢笼。<br>
+                [>] 想要那根撬棍吗？
+            </div>
+
+            <div style="margin-top: 30px; font-size: 0.8rem; border: 1px dashed var(--screen-green); padding: 10px;">
+                保持冷静。拨动旋钮，进入深度觉醒模式。
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
